@@ -1,7 +1,7 @@
 import pygame
 from config import FPS, WIDTH, HEIGHT, BLACK, YELLOW, RED
 from assets import load_assets, DESTROY_SOUND, BOOM_SOUND, BACKGROUND, SCORE_FONT
-from sprites import Ship, Meteor, Bullet, Explosion
+from sprites import Ship, Meteor, Bullet, Explosion,Meteor2
 
 
 def game_screen(window):
@@ -23,8 +23,13 @@ def game_screen(window):
     player = Ship(groups, assets)
     all_sprites.add(player)
     # Criando os meteoros
-    for i in range(8):
+    e = 2
+    for i in range(e):
         meteor = Meteor(assets)
+        all_sprites.add(meteor)
+        all_meteors.add(meteor)
+    for i in range(7):
+        meteor = Meteor2(assets)
         all_sprites.add(meteor)
         all_meteors.add(meteor)
 
@@ -57,6 +62,10 @@ def game_screen(window):
                         player.speedx -= 8
                     if event.key == pygame.K_RIGHT:
                         player.speedx += 8
+                    if event.key == pygame.K_UP:
+                        player.speedy -= 6
+                    if event.key == pygame.K_DOWN:
+                        player.speedy += 6    
                     if event.key == pygame.K_SPACE:
                         player.shoot()
                 # Verifica se soltou alguma tecla.
@@ -67,6 +76,11 @@ def game_screen(window):
                             player.speedx += 8
                         if event.key == pygame.K_RIGHT:
                             player.speedx -= 8
+                        if event.key == pygame.K_UP:
+                            player.speedy += 6
+                        if event.key == pygame.K_DOWN:
+                            player.speedy -= 6    
+
 
         # ----- Atualiza estado do jogo
         # Atualizando a posição dos meteoros
@@ -90,6 +104,8 @@ def game_screen(window):
                 score += 100
                 if score % 1000 == 0:
                     lives += 1
+                    e+=3
+    
 
             # Verifica se houve colisão entre nave e meteoro
             hits = pygame.sprite.spritecollide(player, all_meteors, True, pygame.sprite.collide_mask)

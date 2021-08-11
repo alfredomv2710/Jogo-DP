@@ -111,13 +111,13 @@ def game_screen(window):
                     maca = Maca(assets)
                     all_sprites.add(maca)
                     all_maca.add(maca)
+                if score % 600 == 0:
+                    meteor = Meteor(assets)
+                    all_sprites.add(meteor)
+                    all_meteors.add(meteor)
             hit = pygame.sprite.groupcollide(all_maca,all_bullets,True,True,pygame.sprite.collide_mask)
             if len(hit) > 0:
                 lives+=1
-
-                
-
-    
 
             # Verifica se houve colisão entre nave e meteoro
             hits = pygame.sprite.spritecollide(player, all_meteors, True, pygame.sprite.collide_mask)

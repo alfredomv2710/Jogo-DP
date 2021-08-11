@@ -15,11 +15,14 @@ BOOM_SOUND = 'boom_sound'
 DESTROY_SOUND = 'destroy_sound'
 PEW_SOUND = 'pew_sound'
 METEOR2_IMG = 'meteor2_img'
+maca_IMG = 'maca_img'
 
 
 
 def load_assets():
     assets = {}
+    assets[maca_IMG] = pygame.image.load(os.path.join(IMG_DIR, 'maca.png')).convert_alpha()
+    assets[maca_IMG] = pygame.transform.scale(assets['maca_img'], (METEOR_WIDTH, METEOR_HEIGHT))
     assets[METEOR2_IMG] = pygame.image.load(os.path.join(IMG_DIR, 'meteoro2.png')).convert_alpha()
     assets[METEOR2_IMG] = pygame.transform.scale(assets['meteor2_img'], (METEOR_WIDTH, METEOR_HEIGHT))
     assets[BACKGROUND] = pygame.image.load(os.path.join(IMG_DIR, 'starfield.png')).convert()

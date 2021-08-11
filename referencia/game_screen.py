@@ -1,7 +1,7 @@
 import pygame
 from config import FPS, WIDTH, HEIGHT, BLACK, YELLOW, RED
 from assets import load_assets, DESTROY_SOUND, BOOM_SOUND, BACKGROUND, SCORE_FONT
-from sprites import Ship, Meteor, Bullet, Explosion,Meteor2
+from sprites import Ship, Meteor, Bullet, Explosion,Meteor2, Maca
 
 
 def game_screen(window):
@@ -14,6 +14,7 @@ def game_screen(window):
     all_sprites = pygame.sprite.Group()
     all_meteors = pygame.sprite.Group()
     all_bullets = pygame.sprite.Group()
+    all_maca = pygame.sprite.Group()
     groups = {}
     groups['all_sprites'] = all_sprites
     groups['all_meteors'] = all_meteors
@@ -32,6 +33,7 @@ def game_screen(window):
         meteor = Meteor2(assets)
         all_sprites.add(meteor)
         all_meteors.add(meteor)
+    
 
     DONE = 0
     PLAYING = 1
@@ -105,6 +107,16 @@ def game_screen(window):
                 if score % 1000 == 0:
                     lives += 1
                     e+=3
+                if score % 300 == 0:
+                    maca = Maca(assets)
+                    all_sprites.add(maca)
+                    all_maca.add(maca)
+            hit = pygame.sprite.groupcollide(all_maca,all_bullets,True,True,pygame.sprite.collide_mask)
+            if len(hit) > 0:
+                lives+=1
+
+                
+
     
 
             # Verifica se houve colisão entre nave e meteoro

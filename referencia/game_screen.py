@@ -113,7 +113,11 @@ def game_screen(window):
                 # Toca o som da colisão
                 assets[BOOM_SOUND].play()
                 player.kill()
-                lives -= 1
+                for elemento in hits:
+                    if isinstance(elemento, Meteor2):
+                        lives -= 2
+                    if isinstance(elemento, Meteor):
+                        lives -=1
                 explosao = Explosion(player.rect.center, assets)
                 all_sprites.add(explosao)
                 state = EXPLODING
